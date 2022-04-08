@@ -1,0 +1,23 @@
+<div class="view">
+  <input
+    #checkIsDone
+    class="toggle"
+    type="checkbox"
+    name="done"
+    [ngModel]="data.isDone"
+    (ngModelChange)="updateItem({ isDone: $event })"
+  />
+  <label class="texte"></label>
+  <form>
+    <input
+    #newTextInput
+    name="newTextInput"
+    value="{{ data.label }}"
+    (focus)="focused = true"
+    (focusout)="focused = false"
+    [ngClass]="{'completed' : data.isDone == true, 'editing' : !data.isDone && focused, 'edit' : !data.isDone && !focused}"
+    (change)="updateItem({ label: newTextInput.value })"
+    />
+  </form>
+  <button class="destroy" (click)="deleteItem(data)"></button>
+</div>

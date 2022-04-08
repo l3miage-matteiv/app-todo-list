@@ -1,0 +1,45 @@
+<section class="todoapp" *ngIf="serviceExtended | async as liste">
+  <header class="header">
+    <h1>{{titre}}</h1>
+    <form (submit) = "createItem(label.value); label.value=''">
+      <input  #label
+              name        = "newTodoInput"
+              class       = "new-todo"
+              placeholder = "Que faire?"
+              autofocus #lab/>
+    </form>
+  </header>
+  <section class="main">
+    <input  class="toggle-all"
+            type="checkbox"
+            name="toggleAll"
+    />
+    <label for="toggleAll" (click)="checklistItems(liste.items)">Mark all as complete</label>
+    <ul class="todo-list">
+      <li *ngFor="let todoItem of liste.displayedItems; trackBy: trackByMethod">
+        <todo-item [data]="todoItem" (update)="updateItem($event, todoItem)" (remove)="deleteItem($event)"></todo-item>
+      </li>
+    </ul>
+  </section>
+  <section class="todo-items">
+  </section>
+  <footer class="footer">
+    <span class="todo-count"><strong></strong>{{liste.remaining}} restantes</span>
+    <ul class="filters">
+      <li>
+        <a class="filterAll" (click)="filterAll()"><button>Tous</button></a>
+      </li>
+      <li>
+        <a class="filterActives" (click)="filterActive()"><button>Actifs</button></a>
+      </li>
+      <li>
+        <a class="filterCompleted" (click)="filterCompleted()"><button>Complétés</button></a>
+      </li>
+      <li>
+        <a>
+          <button class="clear-completed" (click)="supprimerCochees(liste.items)">Supprimer cochées</button>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</section>

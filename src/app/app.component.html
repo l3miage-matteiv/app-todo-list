@@ -1,0 +1,14 @@
+<h1>TP TodoList</h1>
+
+<div *ngIf="auth.user | async as user; else notLoggedIn">
+  <h1>Salut {{user.displayName}} !</h1>
+  <h2> <img src="{{user.photoURL}}"/></h2>
+  <button (click)="logout()">Logout</button>
+</div>
+<ng-template #notLoggedIn>
+  <button (click)="login()">Login</button>
+</ng-template>
+
+<todo-list [titre]="'Liste de merde'"></todo-list>
+
+<pre>{{todoListObs | async | json}}</pre>
